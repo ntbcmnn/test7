@@ -7,7 +7,7 @@
 }
 
 .add-btn:hover {
-    box-shadow: 0 0 5px 2px rgb(42, 91, 181);
+    box-shadow: 0 0 5px 1px rgba(42, 91, 181, 0.56);
 }
 
 .add-btn img {
