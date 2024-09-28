@@ -5,4 +5,42 @@ body {
     font-style: normal;
     font-size: 17px;
     background: #6495ED;
+    color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    margin: 40px 0;
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.product {
+    display: flex;
+    gap: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.order-container {
+    width: 40%;
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+    padding: 15px;
+    margin: 0 15px;
 }
