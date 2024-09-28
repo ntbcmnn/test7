@@ -1,6 +1,13 @@
 import './App.css';
 import {useState} from 'react';
 
+import Add from './Components/Add/Add.tsx';
+import Remove from './Components/Remove/Remove.tsx';
+import Info from './Components/Info/Info.tsx';
+import Order from './Components/Order/Order.tsx';
+
+import {IProduct} from './types';
+
 import tea from './assets/tea.jpg';
 import coffee from './assets/coffee.svg';
 import juice from './assets/juice.jpg';
@@ -8,13 +15,8 @@ import hamburger from './assets/hamburger.jpg';
 import cheeseburger from './assets/cheeseburger.jpg';
 import fries from './assets/fries.jpg';
 
-import {IProduct} from './types';
-import Add from './Components/Add/Add.tsx';
-import Remove from './Components/Remove/Remove.tsx';
-
 const App = () => {
-
-    // const [price, setPrice] = useState<number>(0);
+    const [price, setPrice] = useState<number>(0);
 
     const [products, setProducts] = useState<IProduct[]>([
         {name: 'Tea', count: 0, price: 100, image: tea},
@@ -34,7 +36,13 @@ const App = () => {
             }
             return product;
         });
+
         setProducts(copyProducts);
+
+        const currentProduct: IProduct | undefined = products.find(i => i.name === name);
+        if (currentProduct) {
+            setPrice(prevState => prevState + currentProduct.price);
+        }
     };
 
     const removeProduct = (name: string): void => {
@@ -46,20 +54,46 @@ const App = () => {
             }
             return product;
         });
+
         setProducts(copyProducts);
+
+        const currentProduct: IProduct | undefined = products.find(i => i.name === name);
+        if (currentProduct && currentProduct.count > 0) {
+            setPrice(prevState => prevState - currentProduct.price);
+        }
     };
+
+    const orderedProducts: IProduct[] = products.filter(prod => prod.count > 0);
 
     return (
         <>
             <div className="container">
-                {products.map((product, id) => {
-                    return product ? (
-                        <div className="product" key={id}>
-                            <Add key={id} product={product} onAdd={() => addProduct}/>
-                            <Remove key={id + 1} product={product} onRemove={() => removeProduct}/>
-                        </div>
-                    ) : null;
-                })}
+                <div className="order-container">
+                    {orderedProducts.length > 0 ? (
+                        orderedProducts.map((product, id) => {
+                            return product ? (
+                                <div className="order">
+                                    <Order key={id} product={product}/>
+                                    <Remove key={id} product={product} onRemove={() => removeProduct(product.name)}/>
+                                </div>
+                            ) : null;
+                        })
+                    ) : (
+                        <h3>Order is empty! Add something from the menu</h3>
+                    )}
+                    {price > 0 ? (<h2>Total: {price} KGS</h2>) : null}
+                </div>
+
+                <div className="menu-container">
+                    {products.map((product, id) => {
+                        return product ? (
+                            <div className="product" key={id}>
+                                <Add key={id} product={product} onAdd={() => addProduct(product.name)}/>
+                                <Info product={product}/>
+                            </div>
+                        ) : null;
+                    })}
+                </div>
             </div>
         </>
     );
