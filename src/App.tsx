@@ -9,6 +9,8 @@ import cheeseburger from './assets/cheeseburger.jpg';
 import fries from './assets/fries.jpg';
 
 import {IProduct} from './types';
+import Add from './Components/Add/Add.tsx';
+import Remove from './Components/Remove/Remove.tsx';
 
 const App = () => {
 
@@ -50,13 +52,14 @@ const App = () => {
     return (
         <>
             <div className="container">
-                {products.map((product) => (
-                    <>
-                        <button type="button" onClick={() => addProduct(product.name)}>+</button>
-                        <button type="button" onClick={() => removeProduct(product.name)}>-</button>
-                        <h4>{product.count}</h4>
-                    </>
-                ))}
+                {products.map((product, id) => {
+                    return product ? (
+                        <div className="product" key={id}>
+                            <Add key={id} product={product} onAdd={() => addProduct}/>
+                            <Remove key={id + 1} product={product} onRemove={() => removeProduct}/>
+                        </div>
+                    ) : null;
+                })}
             </div>
         </>
     );
