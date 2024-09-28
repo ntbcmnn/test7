@@ -1,0 +1,17 @@
+.add-btn {
+    display: block;
+    background: transparent;
+    cursor: pointer;
+    border: 2px solid #6495ED;
+    border-radius: 10px;
+}
+
+.add-btn:hover {
+    box-shadow: 0 0 5px 2px rgb(42, 91, 181);
+}
+
+.add-btn img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+}
