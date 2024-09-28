@@ -70,11 +70,11 @@ const App = () => {
             <div className="container">
                 <div className="order-container">
                     {orderedProducts.length > 0 ? (
-                        orderedProducts.map((product, id) => {
+                        orderedProducts.map((product) => {
                             return product ? (
-                                <div className="order">
-                                    <Order key={id} product={product}/>
-                                    <Remove key={id} product={product} onRemove={() => removeProduct(product.name)}/>
+                                <div className="order" key={product.name}>
+                                    <Order product={product}/>
+                                    <Remove product={product} onRemove={() => removeProduct(product.name)}/>
                                 </div>
                             ) : null;
                         })
@@ -85,10 +85,10 @@ const App = () => {
                 </div>
 
                 <div className="menu-container">
-                    {products.map((product, id) => {
+                    {products.map((product) => {
                         return product ? (
-                            <div className="product" key={id}>
-                                <Add key={id} product={product} onAdd={() => addProduct(product.name)}/>
+                            <div className="product" key={product.name}>
+                                <Add product={product} onAdd={() => addProduct(product.name)}/>
                                 <Info product={product}/>
                             </div>
                         ) : null;
