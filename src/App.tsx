@@ -2,7 +2,6 @@ import './App.css';
 import {useState} from 'react';
 
 import Add from './Components/Add/Add.tsx';
-import Remove from './Components/Remove/Remove.tsx';
 import Info from './Components/Info/Info.tsx';
 import Order from './Components/Order/Order.tsx';
 
@@ -72,10 +71,7 @@ const App = () => {
                     {orderedProducts.length > 0 ? (
                         orderedProducts.map((product) => {
                             return product ? (
-                                <div className="order" key={product.name}>
-                                    <Order product={product}/>
-                                    <Remove product={product} onRemove={() => removeProduct(product.name)}/>
-                                </div>
+                                    <Order key={product.name} product={product} onRemove={() => removeProduct(product.name)} />
                             ) : null;
                         })
                     ) : (
